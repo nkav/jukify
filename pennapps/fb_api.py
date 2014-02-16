@@ -28,7 +28,7 @@ network = pylast.LastFMNetwork(api_key = API_KEY, api_secret =
 
 
 def find_artist_id(artist_name):
-	artistname = artist_name.encode(sys.stdout.encoding, errors='replace')
+	artistname = artist_name.encode('utf-8', errors='replace')
 	x=rdio.call('search',params={'query': artist_name, 'types': 'Artist'})
 	# results are returned in multiple layers of dictionaries and lists
 	# the following lines extract the useful information
@@ -38,7 +38,7 @@ def find_artist_id(artist_name):
 		return ""
 	else:
 		q = z[0]
-		w = q['key'].encode(sys.stdout.encoding, errors='replace')
+		w = q['key'].encode('utf-8', errors='replace')
 		return w
 
 def find_artist_image(artist):
@@ -46,7 +46,7 @@ def find_artist_image(artist):
 	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
 	y = x['result']
 	z = y[0]
-	c = z['icon'].encode(sys.stdout.encoding, errors='replace')
+	c = z['icon'].encode('utf-8', errors='replace')
 	return c
 	
 def find_songs(artist):
@@ -64,14 +64,14 @@ def find_songs(artist):
 		l = k[:46]
 		if len(l) == 46:
 			l = l[:43]+"..."
-		songlist.append(l.replace("'","").encode(sys.stdout.encoding, errors='replace'))
+		songlist.append(l.replace("'","").encode('utf-8', errors='replace'))
 	return songlist
 	
 def get_genre(artist):
 	artist = network.get_artist(artist)
 	topItems = artist.get_top_tags(limit=None)
 	for topItem in topItems:
-		a = topItem.item.get_name().title().replace("'","").encode(sys.stdout.encoding, errors='replace')
+		a = topItem.item.get_name().title().replace("'","").encode('utf-8', errors='replace')
 		if a in ['House', 'Electronic', 'EDM', 'Dubstep', 'DnB']:
 			return 'Electronic'
 		elif a in ['Rock', 'Metal', 'Heavy Metal' 'Thrash Metal', 'Death Metal']:
@@ -98,15 +98,19 @@ def get_artists(user_id, token):
 			while (a):
 				for like in a:
 					if like.category == "Musician/band":
-						 list.append(like.name.encode(sys.stdout.encoding, errors='replace'))
+						list.append(like.name.encode('utf-8', errors='replace'))
 				a = a.next()
 			i = i + 1
-			print friend.name.encode(sys.stdout.encoding, errors='replace') +" %d" % i
+			print friend.name.encode('utf-8', errors='replace') +" %d" % i
+	for item in list:
+		sys.stderr.write("List" + item + '\n')
 	b = Counter(list)
 	i=0
 	for artist in b:
-		if b[artist] > (NUMBER_OF_PEOPLE/15) and i<16:
-			print artist, i
+		sys.stderr.write("Counter" + artist + '\n')
+		sys.stderr.write(str(b[artist]) + '\n')
+		if b[artist] > (NUMBER_OF_PEOPLE/20):
+			sys.stderr.write("Counter" + artist + '\n')
 			i=i+1
 			if find_songs(artist) == [] or find_artist_id(artist) == "":
 				continue
@@ -134,14 +138,14 @@ def get_artists(user_id, token):
 def format_text(list):
 	s=""
 	s+=('[\n')
-	countcount=1
+	countcount=0
 	for item in list:
 		s+=('\t{\n')
 		counter=0
-		a=len(item)-1
+		a=len(list)
 		for key in item:
 			if counter ==3:
-				s+=("\t\t%r: [" % (key.encode(sys.stdout.encoding, errors='replace')))
+				s+=("\t\t%r: [" % (key.encode('utf-8', errors='replace')))
 				counter2=0
 				for song in item["songs"]:
 					s+=("\t\t{\"name\":%r}" % song)
@@ -152,15 +156,13 @@ def format_text(list):
 					s+=(",\n")
 				counter=counter+1
 			else:
-				s+=("\t\t%r: %r" % (key.encode(sys.stdout.encoding, errors='replace'), item[key]))
+				s+=("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
 				counter=counter+1
 				if counter == 6:
 					s+=("\n")
 					break
 				s+=(",\n")
 		countcount=countcount+1
-		print countcount
-		print a
 		if countcount<a:
 			s+=('\t},\n')
 		else:

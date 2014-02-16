@@ -4,7 +4,7 @@ from pennapps import app
 from flask import render_template, send_from_directory, url_for, session, redirect, request
 from models import db, Member
 from flask_oauth import OAuth
-from fb_api import get_artists, FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY
+from fb_api import get_artists, format_text, FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY
 import json
 
 @app.route('/')
@@ -20,7 +20,7 @@ facebook = oauth.remote_app('facebook',
     authorize_url='https://www.facebook.com/dialog/oauth',
     consumer_key=FACEBOOK_APP_ID,
     consumer_secret=FACEBOOK_SECRET_KEY,
-    request_token_params={'scope': ('email, ')}
+    request_token_params={'scope': ('email, user_friends, friends_likes, friends_events, user_events, user_likes')}
 )
 
 @facebook.tokengetter
@@ -51,16 +51,21 @@ def logout():
     pop_login_session()
     return redirect(url_for('index'))
 
+@app.route("/createplaylist")
+def playlist():
+	location = app.config['STATIC_FOLDER'] + "/sample.json"
+	f = open(location, "w")
+	f.write(format_text(get_artists("nkavthekar", session['facebook_token'][0])))
+	return str(location)
+
 @app.route("/findfriends")
 def findfriends():
   data = facebook.get('/me').data
   if 'id' in data and 'name' in data:
+    print str(dir(data))
     user_id = data['id']
     user_name = data['name']
     asciitoken = session['facebook_token'][0]
-    songs = get_artists("sebastian.rollen", asciitoken.encode('utf-8', errors='replace'))
-    return '\n'.join([str(song) for song in songs]) 
-    # songlist = [str(song) for song in songs]	
-    #stringrep = '\n'.join(songlist)
-    #return stringrep 
+    songs = get_artists("nkavthekar", asciitoken.encode('utf-8'))
+    return format_text(songs) 
   return "Nope"
