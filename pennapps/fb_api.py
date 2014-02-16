@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from pyfb import Pyfb
 from settings import FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY, RDIO_KEY, RDIO_SECRET, LAST_API_KEY, LAST_SECRET, LAST_USERNAME, LAST_PASSWORD
 import sys
@@ -23,32 +23,36 @@ network = pylast.LastFMNetwork(api_key = API_KEY, api_secret =
 	
 #Copy the [access_token] and enter it below
 
-token = 'CAAUz0srmPAUBACxhcAPvQo57ayhBHrBb7ZC15DZAl5UZAfmbmkAQP4wTxRJ8w9OLBCzOYMe7ZAPSjQ3ZAK5wDFKGKrW4Pj4ER4sEFrgNZANHz3JxIqQ2C4ybnizQW8ObaSU1Tf6vm1EvMfi4sl1FznXLDZCSmEl0EK6k1ZBFr78yxLBQ62JSj4HuK92hZCIFuYPkgVNdljRfJnAZDZD'
+#token = 'CAAUz0srmPAUBAPSn6sapqSuVC13vVICyp7dsyLKZBHRM1ZCjpQlZBx3aqOLI1DFqxMa3KE5wXBLmgtVSsnHpakalpayt3xyNwrnwGuo98XHpeOhDzpZBYLM1dhpw1ORnOilob2xPbb75SXjDGOZBrlU5cdZC6d6ZBF79niutS4JzMA2D6ABvBS8L0DYi6dO2R6f9Q8tX8AQEwZDZD'
 #Sets the authentication token
 
-	
+
 def find_artist_id(artist_name):
-	artistname = artist_name.encode('ascii', errors='replace')
+	artistname = artist_name.encode(sys.stdout.encoding, errors='replace')
 	x=rdio.call('search',params={'query': artist_name, 'types': 'Artist'})
 	# results are returned in multiple layers of dictionaries and lists
 	# the following lines extract the useful information
 	y = x['result']
 	z = y['results']
-	q = z[0]
-	w = q['key'].encode('ascii', errors='replace')
-	return w
-	
+	if z == []:
+		return ""
+	else:
+		q = z[0]
+		w = q['key'].encode(sys.stdout.encoding, errors='replace')
+		return w
 
 def find_artist_image(artist):
 	artistkey = find_artist_id(artist)
 	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
 	y = x['result']
 	z = y[0]
-	c = z['icon'].encode('ascii', errors='replace')
+	c = z['icon'].encode(sys.stdout.encoding, errors='replace')
 	return c
 	
 def find_songs(artist):
 	artistkey = find_artist_id(artist)
+	if artistkey=="":
+		return []
 	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
 	y = x['result']
 	if y == []:
@@ -60,15 +64,23 @@ def find_songs(artist):
 		l = k[:46]
 		if len(l) == 46:
 			l = l[:43]+"..."
-		songlist.append(l.replace("'","").encode('ascii', errors='replace'))
+		songlist.append(l.replace("'","").encode(sys.stdout.encoding, errors='replace'))
 	return songlist
-
+	
 def get_genre(artist):
 	artist = network.get_artist(artist)
 	topItems = artist.get_top_tags(limit=None)
 	for topItem in topItems:
-		a = topItem.item.get_name().title().replace("'","").encode('ascii', errors='replace')
-		if a in ['Pop', 'House', 'Classical', 'Jazz', 'Country', 'Hip-Hop', 'Rock', 'Reggae']:
+		a = topItem.item.get_name().title().replace("'","").encode(sys.stdout.encoding, errors='replace')
+		if a in ['House', 'Electronic', 'EDM', 'Dubstep', 'DnB']:
+			return 'Electronic'
+		elif a in ['Rock', 'Metal', 'Heavy Metal' 'Thrash Metal', 'Death Metal']:
+			return 'Rock/Metal'
+		elif a in ['Alternative', 'Indie']:
+			return 'Alternative'
+		elif a in ['Country', 'Folk']:
+			return 'Country/Folk'
+		elif a in ['Classic Rock', 'Pop', 'Classical', 'Jazz', 'Hip-Hop', 'Reggae', 'Rap']:
 			return a
 		else:
 			return 'Other'
@@ -86,15 +98,17 @@ def get_artists(user_id, token):
 			while (a):
 				for like in a:
 					if like.category == "Musician/band":
-						 list.append(like.name.encode('ascii', errors='replace'))
+						 list.append(like.name.encode(sys.stdout.encoding, errors='replace'))
 				a = a.next()
 			i = i + 1
-			print friend.name.encode('ascii', errors='replace') +" %d" % i
+			print friend.name.encode(sys.stdout.encoding, errors='replace') +" %d" % i
 	b = Counter(list)
 	i=0
 	for artist in b:
-		if b[artist] > (NUMBER_OF_PEOPLE/20):
-			if find_songs(artist) == []:
+		if b[artist] > (NUMBER_OF_PEOPLE/15) and i<16:
+			print artist, i
+			i=i+1
+			if find_songs(artist) == [] or find_artist_id(artist) == "":
 				continue
 			dictionary["likes"] = b[artist]
 			dictionary["name"] = artist.replace("'","")
@@ -115,8 +129,6 @@ def get_artists(user_id, token):
 			except:
 				dictionary["genre"] = ""
 			dictionarylist.append(dictionary.copy())
-			i=i+1
-			print artist, i
 	return dictionarylist
 	
 def format_text(list):
@@ -129,7 +141,7 @@ def format_text(list):
 		a=len(item)-1
 		for key in item:
 			if counter ==3:
-				s+=("\t\t%r: [" % (key.encode('ascii', errors='replace')))
+				s+=("\t\t%r: [" % (key.encode(sys.stdout.encoding, errors='replace')))
 				counter2=0
 				for song in item["songs"]:
 					s+=("\t\t{\"name\":%r}" % song)
@@ -140,7 +152,7 @@ def format_text(list):
 					s+=(",\n")
 				counter=counter+1
 			else:
-				s+=("\t\t%r: %r" % (key.encode('ascii', errors='replace'), item[key]))
+				s+=("\t\t%r: %r" % (key.encode(sys.stdout.encoding, errors='replace'), item[key]))
 				counter=counter+1
 				if counter == 6:
 					s+=("\n")
@@ -154,11 +166,12 @@ def format_text(list):
 		else:
 			s+=('\t}\n')
 	s+=(']')
+	s=s.replace("'","\"")
 	return s
 	
 	
-#def json_list(list):
-#	return json.dumps(list, sort_keys = True, indent = 4)
+def json_list(list):
+	return json.dumps(list, sort_keys = True, indent = 4)
 
 #f=open("sample.txt","w")
-print format_text(get_artists('sebastian.rollen', token))
+#f.write(json_list(get_artists('sebastian.rollen', token)))
