@@ -103,14 +103,10 @@ def get_artists(user_id, token):
 			i = i + 1
 			print friend.name.encode('utf-8', errors='replace') +" %d" % i
 	for item in list:
-		sys.stderr.write("List" + item + '\n')
 	b = Counter(list)
 	i=0
 	for artist in b:
-		sys.stderr.write("Counter" + artist + '\n')
-		sys.stderr.write(str(b[artist]) + '\n')
 		if b[artist] > (NUMBER_OF_PEOPLE/20):
-			sys.stderr.write("Counter" + artist + '\n')
 			i=i+1
 			if find_songs(artist) == [] or find_artist_id(artist) == "":
 				continue
@@ -174,6 +170,3 @@ def format_text(list):
 	
 def json_list(list):
 	return json.dumps(list, sort_keys = True, indent = 4)
-
-#f=open("sample.txt","w")
-#f.write(json_list(get_artists('sebastian.rollen', token)))

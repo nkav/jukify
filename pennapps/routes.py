@@ -9,7 +9,7 @@ import json
 
 @app.route('/')
 def index():
-  return "Hello, world!" 
+  return render_template(home.html) 
 
 oauth = OAuth()
 
