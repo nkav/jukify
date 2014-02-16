@@ -3,27 +3,26 @@
 <head>
   <meta charset="utf-8">
   <title>Jukify Your Playlists</title>
-  <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link href="/twitter-bootstrap/twitter-bootstrap-v2/docs/assets/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
 
-  <script src="lib/jquery/jquery-1.10.2.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular/angular-animate.js"></script>
-  <script src="lib/angular/angular-resource.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
+  <script src="{{ url_for('static', filename='js/lib/jquery/jquery-1.10.2.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lib/angular/angular.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lib/angular/angular-animate.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lib/angular/angular-resource.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lib/angular/angular-route.js')}}"></script>
 
-  <script src="js/app.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/services.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/animations.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/controllers.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/filters.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/services.js')}}"></script>
 
-  <script src="lib/js/angular.min.js"></script>
+  <script src="{{ url_for('static', filename='js/lib/js/angular.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+
   <script src="http://code.angularjs.org/1.2.13/angular.min.js"></script>
-  <script src="script.js"></script>
-  <script src="protractorTest.js"></script>
 
 
 
@@ -62,7 +61,8 @@
 
 
   <div class="view-container">
-    <div ng-view class="view-frame"></div>
+		{% block content %}
+		{% endblock %}
   </div>
 
   <footer class="footer" style="background-color:white">

@@ -10,7 +10,7 @@ import pylast
 
 fb = Pyfb(FACEBOOK_APP_ID)
 rdio = Rdio((RDIO_KEY, RDIO_SECRET))
-NUMBER_OF_PEOPLE = 100
+NUMBER_OF_PEOPLE = 25 
 
 API_KEY = LAST_API_KEY 
 API_SECRET = LAST_SECRET
@@ -85,12 +85,13 @@ def get_genre(artist):
 		else:
 			return 'Other'
 
-def get_artists(user_id, token):
+def get_artists(token):
 	fb.set_access_token(token)
 	list = []
 	dictionarylist = []
 	dictionary = {}
 	i = 0
+	user_id = fb.get_myself().id
 	friends = fb.get_friends(user_id)
 	for friend in friends:
 		if i < NUMBER_OF_PEOPLE:
@@ -102,11 +103,10 @@ def get_artists(user_id, token):
 				a = a.next()
 			i = i + 1
 			print friend.name.encode('utf-8', errors='replace') +" %d" % i
-	for item in list:
 	b = Counter(list)
 	i=0
 	for artist in b:
-		if b[artist] > (NUMBER_OF_PEOPLE/20):
+		if b[artist] > (NUMBER_OF_PEOPLE/12):
 			i=i+1
 			if find_songs(artist) == [] or find_artist_id(artist) == "":
 				continue

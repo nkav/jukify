@@ -9,7 +9,8 @@ import json
 
 @app.route('/')
 def index():
-  return render_template(home.html) 
+  return render_template('partials/home.html') 
+
 
 oauth = OAuth()
 
@@ -39,7 +40,7 @@ def facebook_login():
 @app.route("/facebook_authorized")
 @facebook.authorized_handler
 def facebook_authorized(resp):
-    next_url = request.args.get('next') or url_for('index')
+    next_url = request.args.get('next') or url_for('playlist')
     if resp is None or 'access_token' not in resp:
         return redirect(next_url)
     session['logged_in'] = True
@@ -53,19 +54,15 @@ def logout():
 
 @app.route("/createplaylist")
 def playlist():
-	location = app.config['STATIC_FOLDER'] + "/sample.json"
-	f = open(location, "w")
-	f.write(format_text(get_artists("nkavthekar", session['facebook_token'][0])))
-	return str(location)
+  location = app.config['STATIC_FOLDER'] + "/phones/phones.json"
+  asciitoken = session['facebook_token'][0]
+  f = open(location, "w")
+  f.write(format_text(get_artists(asciitoken.encode('utf-8'))))
+  return redirect(url_for('jukify'))
 
-@app.route("/findfriends")
-def findfriends():
+@app.route("/jukify")
+def jukify():
   data = facebook.get('/me').data
   if 'id' in data and 'name' in data:
-    print str(dir(data))
-    user_id = data['id']
-    user_name = data['name']
-    asciitoken = session['facebook_token'][0]
-    songs = get_artists("nkavthekar", asciitoken.encode('utf-8'))
-    return format_text(songs) 
-  return "Nope"
+    return render_template('partials/phone-list.html') 
+  return redirect(url_for('index'))

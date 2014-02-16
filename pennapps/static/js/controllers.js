@@ -5,6 +5,13 @@
 
 
 var phonecatControllers = angular.module('phonecatControllers', []);
+
+
+phonecatControllers.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+});
+
 var globalCounter = 0;
 
 phonecatControllers.controller('PhoneListCtrl', ['$scope', 'Phone',

@@ -1,0 +1,41 @@
+[
+	{
+		"name": "Jay Z",
+		"genre": "Other",
+		"imageUrl": "http://rdio-a.cdn3.rdio.com/album/3/d/8/00000000003118d3/10/square-200.jpg",
+		"songs": [		{"name":"Holy Grail"},
+		{"name":"F*ckwithmeyouknowigotit"},
+		{"name":"Tom Ford"},
+		{"name":"Picasso Baby"},
+		{"name":"Oceans"}
+			],
+		"id": "r39027",
+		"likes": 3
+	},
+	{
+		"name": "Michael Jackson",
+		"genre": "Pop",
+		"imageUrl": "http://rdio-c.cdn3.rdio.com/album/0/6/0/000000000003a060/square-200.jpg",
+		"songs": [		{"name":"Billie Jean"},
+		{"name":"Beat It"},
+		{"name":"Dont Stop Til You Get Enough (2003 Edit)"},
+		{"name":"Rock with You"},
+		{"name":"Thriller (2003 Edit)"}
+			],
+		"id": "r57636",
+		"likes": 3
+	},
+	{
+		"name": "Kanye West",
+		"genre": "Hip-Hop",
+		"imageUrl": "http://rdio-c.cdn3.rdio.com/album/5/c/4/00000000002fa4c5/2/square-200.jpg",
+		"songs": [		{"name":"Black Skinhead"},
+		{"name":"Mercy"},
+		{"name":"All Of The Lights"},
+		{"name":"Blood On The Leaves"},
+		{"name":"New Slaves feat. Frank Ocean"}
+			],
+		"id": "r20227",
+		"likes": 4
+	}
+]
