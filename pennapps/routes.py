@@ -1,25 +1,10 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
-from pennapps import app
-from flask import render_template, request, flash, session, url_for, redirect, send_from_directory
-from models import db, Member
-
-@app.route('/')
-def home():
-  return "Hello, world!" 
-
-@app.route('/home')
-def hello():
-  return "Hello world!"
-
 import os, sys
 from pennapps import app
 from flask import render_template, send_from_directory, url_for, session, redirect, request
 from models import db, Member
-from settings import FACEBOOK_APP_ID, FACEBOOK_APP_SECRET 
 from flask_oauth import OAuth
-from fb_api import get_artists
+from fb_api import get_artists, FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY
 import json
 
 @app.route('/')
@@ -34,7 +19,7 @@ facebook = oauth.remote_app('facebook',
     access_token_url='/oauth/access_token',
     authorize_url='https://www.facebook.com/dialog/oauth',
     consumer_key=FACEBOOK_APP_ID,
-    consumer_secret=FACEBOOK_APP_SECRET,
+    consumer_secret=FACEBOOK_SECRET_KEY,
     request_token_params={'scope': ('email, ')}
 )
 
