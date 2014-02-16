@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from pyfb import Pyfb
 from settings import FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY, RDIO_KEY, RDIO_SECRET, LAST_API_KEY, LAST_SECRET, LAST_USERNAME, LAST_PASSWORD
 import sys
@@ -23,6 +23,7 @@ network = pylast.LastFMNetwork(api_key = API_KEY, api_secret =
 	
 #Copy the [access_token] and enter it below
 
+#token = 'CAAUz0srmPAUBAO8TtGGVCSNZCOFiCaZAhdz9MTD98jRCsPoknQMitXzsbMsLq5E0QKwkAOIVW0Fk6980A0jruAVCEM8Wl0GaCzFAhyM5prnZCdbS079FEYpITClf2GQwZBTsWKZB487mTir5yWSbsR4yhnOqqJmKFntCZABs9mRjRVjZBvvzxRdZBijaF5GAvZBiccQZAOMXtHogZDZD'
 #Sets the authentication token
 
 	
@@ -51,15 +52,17 @@ def find_songs(artist):
 	songlist = []
 	for i in range(0,5):
 		z = y[i]
-		songlist.append(z['name'].encode('utf-8', errors='replace'))
+		k = z['name']
+		l = k[:46]
+		songlist.append(l.replace("'","").encode('utf-8', errors='replace'))
 	return songlist
 
 def get_genre(artist):
 	artist = network.get_artist(artist)
 	topItems = artist.get_top_tags(limit=None)
 	for topItem in topItems:
-		return topItem.item.get_name().encode('utf-8', errors='replace')
-	
+		return topItem.item.get_name().title().replace("'","").encode('utf-8', errors='replace')	
+
 def get_artists(user_id, token):
 	fb.set_access_token(token)
 	dictionary = {}
@@ -73,17 +76,17 @@ def get_artists(user_id, token):
 			while (a):
 				for like in a:
 					if like.category == "Musician/band":
-						 list.append(like.name.encode('utf-8', errors='ignore'))
+						 list.append(like.name.encode('utf-8', errors='replace'))
 				a = a.next()
 			i = i + 1
 			print friend.name.encode('utf-8', errors='replace') +" %d" % i
 	b = Counter(list)
 	i=0
 	for artist in b:
-		if b[artist] > (NUMBER_OF_PEOPLE/20):
+		if b[artist] > (NUMBER_OF_PEOPLE/12):
 			print artist, i
 			dictionary["likes"] = b[artist]
-			dictionary["name"] = artist
+			dictionary["name"] = artist.replace("'","")
 			try:
 				dictionary["id"] = find_artist_id(artist)
 			except:
@@ -107,17 +110,35 @@ def get_artists(user_id, token):
 def format_text(list):
 	f = open('sample.txt',"a")
 	f.write('[\n')
+	countcount=0
 	for item in list:
 		f.write('\t{\n')
 		counter=0
+		a=len(item)-1
 		for key in item:
-			f.write("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
-			counter=counter+1
-			if counter == 6:
-				f.write("\n")
-				break
-			f.write(",\n")
-		f.write('\t}\n')
+			if counter ==3:
+				f.write("\t\t%r: [" % (key.encode('utf-8', errors='replace')))
+				counter2=0
+				for song in item["songs"]:
+					f.write("\t\t{\"name\":%r}" % song)
+					counter2=counter2+1
+					if counter2==5:
+						f.write("\n\t\t\t],\n")
+						break
+					f.write(",\n")
+				counter=counter+1
+			else:
+				f.write("\t\t%r: %r" % (key.encode('utf-8', errors='replace')), item[key]))
+				counter=counter+1
+				if counter == 6:
+					f.write("\n")
+					break
+				f.write(",\n")
+		countcount=countcount+1
+		if countcount<a:
+			f.write('\t},\n')
+		else:
+			f.write('\t}\n')
 	f.write(']')
 	f.close()
 	h = open('sample.txt','r')
@@ -130,7 +151,6 @@ def format_text(list):
 	
 def json_list(list):
 	return json.dumps(list, sort_keys = True, indent = 4)
-	
-	
+
 #f=open("sample.txt","w")
-#f.write(json_list(get_artists('sebastian.rollen', token)))
+#format_text(get_artists('sebastian.rollen', token))
