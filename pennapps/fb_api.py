@@ -23,7 +23,6 @@ network = pylast.LastFMNetwork(api_key = API_KEY, api_secret =
 	
 #Copy the [access_token] and enter it below
 
-token = 'CAAUz0srmPAUBAM24zlcMKhZCOYGokKejgogMHoGTduZCayr00HFGUvpiOEdP0J9JmWFlprkSZCPHD7H6FFVF7TRf7FLcGEs6kZBWb1WTZASLwe4kX8RdF9qIug1VhF0jNZAE8HXgakJBaoER3bKdG9wIRAMAVye5BpEy3BwLjsvzWFSauYyS6v94jsCYS6MS3epNLZCEB74AAZDZD'
 #Sets the authentication token
 
 	
@@ -34,7 +33,7 @@ def find_artist_id(artist_name):
 	y = x['result']
 	z = y['results']
 	q = z[0]
-	w = q['key'].encode(sys.stdout.encoding, errors='replace')
+	w = q['key'].encode('utf-8', errors='replace')
 	return w
 	
 def find_artist_image(artist):
@@ -42,7 +41,7 @@ def find_artist_image(artist):
 	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
 	y = x['result']
 	z = y[0]
-	c = z['icon'].encode(sys.stdout.encoding, errors='replace')
+	c = z['icon'].encode('utf-8', errors='replace')
 	return c
 	
 def find_songs(artist):
@@ -52,14 +51,14 @@ def find_songs(artist):
 	songlist = []
 	for i in range(0,5):
 		z = y[i]
-		songlist.append(z['name'].encode(sys.stdout.encoding, errors='replace'))
+		songlist.append(z['name'].encode('utf-8', errors='replace'))
 	return songlist
 
 def get_genre(artist):
 	artist = network.get_artist(artist)
 	topItems = artist.get_top_tags(limit=None)
 	for topItem in topItems:
-		return topItem.item.get_name().encode(sys.stdout.encoding, errors='replace')
+		return topItem.item.get_name().encode('utf-8', errors='replace')
 	
 def get_artists(user_id, token):
 	fb.set_access_token(token)
@@ -74,10 +73,10 @@ def get_artists(user_id, token):
 			while (a):
 				for like in a:
 					if like.category == "Musician/band":
-						 list.append(like.name.encode(sys.stdout.encoding, errors='ignore'))
+						 list.append(like.name.encode('utf-8', errors='ignore'))
 				a = a.next()
 			i = i + 1
-			print friend.name +" %d" % i
+			print friend.name.encode('utf-8', errors='replace') +" %d" % i
 	b = Counter(list)
 	i=0
 	for artist in b:
@@ -112,7 +111,7 @@ def format_text(list):
 		f.write('\t{\n')
 		counter=0
 		for key in item:
-			f.write("\t\t%r: %r" % (key.encode(sys.stdout.encoding, errors='replace'), item[key]))
+			f.write("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
 			counter=counter+1
 			if counter == 6:
 				f.write("\n")
@@ -133,5 +132,5 @@ def json_list(list):
 	return json.dumps(list, sort_keys = True, indent = 4)
 	
 	
-f=open("sample.txt","w")
-f.write(json_list(get_artists('sebastian.rollen', token)))
+#f=open("sample.txt","w")
+#f.write(json_list(get_artists('sebastian.rollen', token)))

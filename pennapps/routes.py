@@ -59,7 +59,7 @@ def findfriends():
     user_name = data['name']
     asciitoken = session['facebook_token'][0]
     songs = get_artists("sebastian.rollen", asciitoken.encode('utf-8', errors='replace'))
-    return str(type(songs))
+    return '\n'.join([str(song) for song in songs]) 
     # songlist = [str(song) for song in songs]	
     #stringrep = '\n'.join(songlist)
     #return stringrep 
