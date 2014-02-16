@@ -1,0 +1,588 @@
+<body class="home page page-id-2692 page-template page-template-page-home-php home-page" style="height:100%; width:100%">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=219816818209997";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  <nav class="navbar navbar-default" role="navigation">
+  </nav>
+  <div class="image" style="position:absolute; top:16px">
+    <div class="row">
+      <div class="col-md-4" style="width:290px; height:797px">
+        <div class="row-fluid">
+          <h1 style="text-align:center">Choose</h1>
+            <div class="span2">
+              <div style="position:absolute; top: 55px; left:10px; background-color:red">
+                <div style="position:absolute; left:15px">
+                  Search: <input ng-model="query">
+                </div>
+                <div style="position:absolute; left:15px; top:45px">
+                  Sort by:
+                  <select ng-model="orderProp">
+                    <option value="name">AlphabNumeretical</option>
+                    <option value="-likes">Number of Facebook Likes</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="span10" style="margin-right: 800px; width: 500px; position:relative; left:288px; top:10px">
+              <div ng-controller="GenreCtrl">        
+                <div style="position:absolute; top:85px; right:594px; width: 150px">
+                  <input type="checkbox" ng-click="includeGenre('Alternative')" ng-model="checkedAlternative" ng-init="checkedAlternative=true">Alternative<br/>
+                  <input type="checkbox" ng-click="includeGenre('Classical')" ng-model="checkedClassical" ng-init="checkedClassical=true">Classical<br/>
+                  <input type="checkbox" ng-click="includeGenre('Classic-Rock')" ng-model="checkedClassicRock" ng-init="checkedClassicRock=true">Classic Rock<br/>
+                  <input type="checkbox" ng-click="includeGenre('Country/Folk')" ng-model="checkedCountryFolk" ng-init="checkedCountryFolk=true">Country/Folk<br/>
+                  <input type="checkbox" ng-click="includeGenre('Electronic')" ng-model="checkedElectronic" ng-init="checkedElectronic=true">Electronic<br/>
+                  <input type="checkbox" ng-click="includeGenre('Hip-Hop')" ng-model="checkedHipHop" ng-init="checkedHipHop=true">Hip Hop<br/>
+                  <input type="checkbox" ng-click="includeGenre('Jazz')" ng-model="checkedJazz" ng-init="checkedJazz=true">Jazz<br/>
+                  <input type="checkbox" ng-click="includeGenre('Other')" ng-model="checkedOther" ng-init="checkedOther=true">Other<br/>
+                  <input type="checkbox" ng-click="includeGenre('Pop')" ng-model="checkedPop" ng-init="checkedPop=true">Pop<br/>
+                  <input type="checkbox" ng-click="includeGenre('Rap')" ng-model="checkedRap" ng-init="checkedRap=true">Rap<br/>
+                  <input type="checkbox" ng-click="includeGenre('Reggae')" ng-model="checkedReggae" ng-init="checkedReggae=true">Reggae<br/>
+                  <input type="checkbox" ng-click="includeGenre('Rock/Metal')" ng-model="checkedRockMetal" ng-init="checkedRockMetal=true">Rock/Metal<br/>                  
+                  
+                </div>
+                <h1 style="position:relative; left:50px; bottom:75px; text-align:center">Peruse</h1>
+                <div class="col-md-4" style="margin-bottom:500px">                  
+                  <ul class="phones" style="position:relative; height:800px; bottom:106px; left:4px; width:550px">
+                    <li style="position:relative; top:50px; margin-bottom:10px" ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+                      <div ng-show="genreIsClassical('{{phone.genre}}')">
+                        <div ng-show="checkedClassical">
+                          <div style="border:2px solid; border-radius:20px">
+                            <div style="position:relative; left:14px; top:5px">
+                              <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                              <a>{{phone.name}}</a>
+                              <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                    
+                                Top Song: {{song.name}}
+                              </div>
+                              <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                              <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div ng-show="genreIsClassical('{{phone.genre}}')" style="opacity:0.15; filter:alpha(opacity=15)">
+                        <div ng-hide="checkedClassical">
+                          <div style="border:2px solid; border-radius:20px">
+                            <div style="position:relative; left:14px; top:5px">
+                              <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsReggae('{{phone.genre}}')">
+                              <div ng-show="checkedReggae">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                 
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsReggae('{{phone.genre}}')" style="opacity:0.15; filter:alpha(opacity=15)">
+                              <div ng-hide="checkedReggae">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsPop('{{phone.genre}}')">
+                              <div ng-show="checkedPop">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsPop('{{phone.genre}}')">
+                              <div ng-hide="checkedPop" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsElectronic('{{phone.genre}}')">
+                              <div ng-show="checkedElectronic">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsElectronic('{{phone.genre}}')">
+                              <div ng-hide="checkedElectronic" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> 
+                            <div ng-show="genreIsJazz('{{phone.genre}}')">
+                              <div ng-show="checkedJazz">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsJazz('{{phone.genre}}')">
+                              <div ng-hide="checkedJazz" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')">
+                              <div ng-show="checkedCountryFolk">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')">
+                              <div ng-hide="checkedCountryFolk" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsHipHop('{{phone.genre}}')">
+                              <div ng-show="checkedHipHop">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsHipHop('{{phone.genre}}')">
+                              <div ng-hide="checkedHipHop" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsRockMetal('{{phone.genre}}')">
+                              <div ng-show="checkedRockMetal">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsRockMetal('{{phone.genre}}')">
+                              <div ng-hide="checkedRockMetal" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsAlternative('{{phone.genre}}')">
+                              <div ng-show="checkedAlternative">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsAlternative('{{phone.genre}}')">
+                              <div ng-hide="checkedAlternative" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsClassicRock('{{phone.genre}}')">
+                              <div ng-show="checkedClassicRock">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsClassicRock('{{phone.genre}}')">
+                              <div ng-hide="checkedClassicRock" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsRap('{{phone.genre}}')">
+                              <div ng-show="checkedRap">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsRap('{{phone.genre}}')">
+                              <div ng-hide="checkedRap" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsOther('{{phone.genre}}')">
+                              <div ng-show="checkedOther">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="genreIsOther('{{phone.genre}}')">
+                              <div ng-hide="checkedOther" style="opacity:0.15; filter:alpha(opacity=15)">                      
+                                <div style="border:2px solid; border-radius:20px">
+                                  <div style="position:relative; left:14px; top:5px">
+                                    <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
+                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
+                                    <a>{{phone.name}}</a>
+                                    <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
+                                      Top Song: {{song.name}}
+                                    </div>
+                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
+                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-4" style="height:760px; transparent; position:absolute; left:616px; width:500px; top:-76px">
+                  <h1 style="text-align:center">Jukify</h1>
+                  <h2 style="text-align: center; margin-top:30px">Your Party Playlist</h2>
+                <div ng-controller="MyCntrl" style="position:relative; left: 30px; top: 5px">    
+                
+                  <button id="shuffle" type="button" style="position:relative; left:155px">Shuffle Playlist</button>
+                  <ol id="partyList" style="position: relative; right: 20px" ng-controller:"Main">
+                    <div style="position: relative; right: 20px" ng-repeat="phone in phones">
+                      <div style="margin-left:15px" ng-repeat="song in phone.songs">                
+                        <div ng-show="checkedReggae">
+                          <div ng-show="genreIsReggae('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <li>
+                              {{song.name}}, {{phone.name}}
+                            </li>
+                          </div>
+                        </div>
+                        <div ng-show="checkedClassical">
+                          <div ng-show="genreIsClassical('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <li>
+                              {{song.name}}, {{phone.name}}
+                            </li>
+                          </div>
+                        </div>
+                        <div ng-show="checkedPop">
+                          <div ng-show="genreIsPop('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <li>
+                              {{song.name}}, {{phone.name}}
+                            </li>
+                          </div>
+                        </div>
+                        <div ng-show="checkedElectronic">
+                          <div ng-show="genreIsElectronic('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <li>
+                              {{song.name}}, {{phone.name}}
+                            </li>
+                          </div>
+                        </div>
+                      
+                      <div ng-show="checkedJazz">
+                          <div ng-show="genreIsJazz('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <li>
+                              {{song.name}}, {{phone.name}}
+                            </li>
+                          </div>
+                        </div>
+                    
+                      <div ng-show="checkedCountryFolk">
+                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      
+                      <div ng-show="checkedHipHop">
+                            <div ng-show="genreIsHipHop('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      <div ng-show="checkedRockMetal">
+                            <div ng-show="genreIsRockMetal('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      <div ng-show="checkedAlternative">
+                            <div ng-show="genreIsAlternative('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      <div ng-show="checkedClassicRock">
+                            <div ng-show="genreIsClassicRock('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      <div ng-show="checkedRap">
+                            <div ng-show="genreIsRap('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                          </div>
+                      <div ng-show="checkedOther">
+                            <div ng-show="genreIsOther('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                              <li>
+                                {{song.name}}, {{phone.name}}
+                              </li>
+                            </div>
+                      </div>
+                  </div>
+                </ol>
+              </div>              
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+          
+
+<script>
+      var list = document.getElementById("partyList"),
+      button = document.getElementById("shuffle");
+
+      function shuffle(o){ //v1.0
+          for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+          return o;
+      };
+      function shuffleNodes()
+      {
+          var nodes = list.children;
+          i = 0;
+          var mix = [];
+          var all = [nodes[0],nodes[1],nodes[2],nodes[3]];
+          console.log(all);
+
+          var a = nodes[0];
+          var b = nodes[1];
+          var c = [1,2];
+          var d = [3,4];
+          var combine = c.concat(d);
+          console.log(combine);
+
+
+
+          nodes = Array.prototype.slice.call(nodes);
+          nodes = shuffle(nodes);
+          while(i < nodes.length)
+          {
+              list.appendChild(nodes[i]);
+              ++i;
+          }
+      }
+      button.onclick = shuffleNodes;
+</script>
+
+</div>
+
+</span>
+</body>
