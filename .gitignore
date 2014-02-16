@@ -1,0 +1,14 @@
+#ignore all .pyc
+*.pyc
+#ignore settings.py
+pennapps/settings.py
+#ignore uploads
+uploads/
+#ignore migrations
+migrations/
+#ignore .swp so vim can be used simultaneously
+*.swp
+#ignore virtualenv
+venv/
+#ignore uploads folder
+pennapps/static/submissions/
