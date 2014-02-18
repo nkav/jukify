@@ -12,3 +12,7 @@ migrations/
 venv/
 #ignore uploads folder
 pennapps/static/submissions/
+#ignore json files
+*.json
+#ignore json files
+pennapps/static/phones/

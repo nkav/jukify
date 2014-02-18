@@ -6,6 +6,10 @@
 
 var phonecatControllers = angular.module('phonecatControllers', []);
 
+var phonecatControllers = angular.module('phonecatControllers', [])
+    .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.timeout = 50000;
+}]);
 
 phonecatControllers.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');

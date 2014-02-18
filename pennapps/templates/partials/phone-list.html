@@ -52,386 +52,386 @@
                 <div class="col-md-4" style="margin-bottom:500px">                  
                   <ul class="phones" style="position:relative; height:800px; bottom:106px; left:4px; width:550px">
                     <li style="position:relative; top:50px; margin-bottom:10px" ng-repeat="phone in phones | filter:query | orderBy:orderProp">
-                      <div ng-show="genreIsClassical('{{phone.genre}}')">
+                      <div ng-show="genreIsClassical('{[{phone.genre}]}')">
                         <div ng-show="checkedClassical">
                           <div style="border:2px solid; border-radius:20px">
                             <div style="position:relative; left:14px; top:5px">
                               <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                              <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                              <a>{[{phone.name}]}</a>
                               <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                    
-                                Top Song: {{song.name}}
+                                Top Song: {[{song.name}]}
                               </div>
-                              <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                              <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                              <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                              <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div ng-show="genreIsClassical('{{phone.genre}}')" style="opacity:0.15; filter:alpha(opacity=15)">
+                      <div ng-show="genreIsClassical('{[{phone.genre}]}')" style="opacity:0.15; filter:alpha(opacity=15)">
                         <div ng-hide="checkedClassical">
                           <div style="border:2px solid; border-radius:20px">
                             <div style="position:relative; left:14px; top:5px">
                               <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsReggae('{{phone.genre}}')">
+                            <div ng-show="genreIsReggae('{[{phone.genre}]}')">
                               <div ng-show="checkedReggae">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                 
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsReggae('{{phone.genre}}')" style="opacity:0.15; filter:alpha(opacity=15)">
+                            <div ng-show="genreIsReggae('{[{phone.genre}]}')" style="opacity:0.15; filter:alpha(opacity=15)">
                               <div ng-hide="checkedReggae">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsPop('{{phone.genre}}')">
+                            <div ng-show="genreIsPop('{[{phone.genre}]}')">
                               <div ng-show="checkedPop">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsPop('{{phone.genre}}')">
+                            <div ng-show="genreIsPop('{[{phone.genre}]}')">
                               <div ng-hide="checkedPop" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsElectronic('{{phone.genre}}')">
+                            <div ng-show="genreIsElectronic('{[{phone.genre}]}')">
                               <div ng-show="checkedElectronic">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsElectronic('{{phone.genre}}')">
+                            <div ng-show="genreIsElectronic('{[{phone.genre}]}')">
                               <div ng-hide="checkedElectronic" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div> 
-                            <div ng-show="genreIsJazz('{{phone.genre}}')">
+                            <div ng-show="genreIsJazz('{[{phone.genre}]}')">
                               <div ng-show="checkedJazz">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsJazz('{{phone.genre}}')">
+                            <div ng-show="genreIsJazz('{[{phone.genre}]}')">
                               <div ng-hide="checkedJazz" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')">
+                            <div ng-show="genreIsCountryFolk('{[{phone.genre}]}')">
                               <div ng-show="checkedCountryFolk">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')">
+                            <div ng-show="genreIsCountryFolk('{[{phone.genre}]}')">
                               <div ng-hide="checkedCountryFolk" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsHipHop('{{phone.genre}}')">
+                            <div ng-show="genreIsHipHop('{[{phone.genre}]}')">
                               <div ng-show="checkedHipHop">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsHipHop('{{phone.genre}}')">
+                            <div ng-show="genreIsHipHop('{[{phone.genre}]}')">
                               <div ng-hide="checkedHipHop" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsRockMetal('{{phone.genre}}')">
+                            <div ng-show="genreIsRockMetal('{[{phone.genre}]}')">
                               <div ng-show="checkedRockMetal">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsRockMetal('{{phone.genre}}')">
+                            <div ng-show="genreIsRockMetal('{[{phone.genre}]}')">
                               <div ng-hide="checkedRockMetal" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsAlternative('{{phone.genre}}')">
+                            <div ng-show="genreIsAlternative('{[{phone.genre}]}')">
                               <div ng-show="checkedAlternative">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsAlternative('{{phone.genre}}')">
+                            <div ng-show="genreIsAlternative('{[{phone.genre}]}')">
                               <div ng-hide="checkedAlternative" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsClassicRock('{{phone.genre}}')">
+                            <div ng-show="genreIsClassicRock('{[{phone.genre}]}')">
                               <div ng-show="checkedClassicRock">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsClassicRock('{{phone.genre}}')">
+                            <div ng-show="genreIsClassicRock('{[{phone.genre}]}')">
                               <div ng-hide="checkedClassicRock" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsRap('{{phone.genre}}')">
+                            <div ng-show="genreIsRap('{[{phone.genre}]}')">
                               <div ng-show="checkedRap">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsRap('{{phone.genre}}')">
+                            <div ng-show="genreIsRap('{[{phone.genre}]}')">
                               <div ng-hide="checkedRap" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsOther('{{phone.genre}}')">
+                            <div ng-show="genreIsOther('{[{phone.genre}]}')">
                               <div ng-show="checkedOther">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div ng-show="genreIsOther('{{phone.genre}}')">
+                            <div ng-show="genreIsOther('{[{phone.genre}]}')">
                               <div ng-hide="checkedOther" style="opacity:0.15; filter:alpha(opacity=15)">                      
                                 <div style="border:2px solid; border-radius:20px">
                                   <div style="position:relative; left:14px; top:5px">
                                     <a class="thumb" style="position:relative; top:13px; padding:1px; border:1px solid #021a40; 
-                                        background-color:#000062"><img ng-src="{{phone.imageUrl}}"></a>
-                                    <a>{{phone.name}}</a>
+                                        background-color:#000062"><img ng-src="{[{phone.imageUrl}]}"></a>
+                                    <a>{[{phone.name}]}</a>
                                     <div ng-repeat="song in phone.songs" ng-show="$first" style="margin-bottom:10px; margin-top:7px">                             
-                                      Top Song: {{song.name}}
+                                      Top Song: {[{song.name}]}
                                     </div>
-                                    <p>Numer of Facebook Likes: {{phone.likes}}</p>
-                                    <p style="margin-bottom:20px">Genre: {{phone.genre}}</p>
+                                    <p>Numer of Facebook Likes: {[{phone.likes}]}</p>
+                                    <p style="margin-bottom:20px">Genre: {[{phone.genre}]}</p>
                                   </div>
                                 </div>
                               </div>
@@ -450,89 +450,89 @@
                     <div style="position: relative; right: 20px" ng-repeat="phone in phones">
                       <div style="margin-left:15px" ng-repeat="song in phone.songs">                
                         <div ng-show="checkedReggae">
-                          <div ng-show="genreIsReggae('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                          <div ng-show="genreIsReggae('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                             <li>
-                              {{song.name}}, {{phone.name}}
+                              {[{song.name}]}, {[{phone.name}]}
                             </li>
                           </div>
                         </div>
                         <div ng-show="checkedClassical">
-                          <div ng-show="genreIsClassical('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                          <div ng-show="genreIsClassical('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                             <li>
-                              {{song.name}}, {{phone.name}}
+                              {[{song.name}]}, {[{phone.name}]}
                             </li>
                           </div>
                         </div>
                         <div ng-show="checkedPop">
-                          <div ng-show="genreIsPop('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                          <div ng-show="genreIsPop('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                             <li>
-                              {{song.name}}, {{phone.name}}
+                              {[{song.name}]}, {[{phone.name}]}
                             </li>
                           </div>
                         </div>
                         <div ng-show="checkedElectronic">
-                          <div ng-show="genreIsElectronic('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                          <div ng-show="genreIsElectronic('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                             <li>
-                              {{song.name}}, {{phone.name}}
+                              {[{song.name}]}, {[{phone.name}]}
                             </li>
                           </div>
                         </div>
                       
                       <div ng-show="checkedJazz">
-                          <div ng-show="genreIsJazz('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                          <div ng-show="genreIsJazz('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                             <li>
-                              {{song.name}}, {{phone.name}}
+                              {[{song.name}]}, {[{phone.name}]}
                             </li>
                           </div>
                         </div>
                     
                       <div ng-show="checkedCountryFolk">
-                            <div ng-show="genreIsCountryFolk('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsCountryFolk('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       
                       <div ng-show="checkedHipHop">
-                            <div ng-show="genreIsHipHop('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsHipHop('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       <div ng-show="checkedRockMetal">
-                            <div ng-show="genreIsRockMetal('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsRockMetal('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       <div ng-show="checkedAlternative">
-                            <div ng-show="genreIsAlternative('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsAlternative('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       <div ng-show="checkedClassicRock">
-                            <div ng-show="genreIsClassicRock('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsClassicRock('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       <div ng-show="checkedRap">
-                            <div ng-show="genreIsRap('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsRap('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                           </div>
                       <div ng-show="checkedOther">
-                            <div ng-show="genreIsOther('{{phone.genre}}')" style="margin-right:19px; position:relative; left:14px; top:5px">
+                            <div ng-show="genreIsOther('{[{phone.genre}]}')" style="margin-right:19px; position:relative; left:14px; top:5px">
                               <li>
-                                {{song.name}}, {{phone.name}}
+                                {[{song.name}]}, {[{phone.name}]}
                               </li>
                             </div>
                       </div>

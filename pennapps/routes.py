@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, sys
 from pennapps import app
-from flask import render_template, send_from_directory, url_for, session, redirect, request
+from flask import render_template, send_from_directory, url_for, session, redirect, request, Response
 from models import db, Member
 from flask_oauth import OAuth
 from fb_api import get_artists, format_text, FACEBOOK_APP_ID, FACEBOOK_SECRET_KEY
@@ -40,7 +40,7 @@ def facebook_login():
 @app.route("/facebook_authorized")
 @facebook.authorized_handler
 def facebook_authorized(resp):
-    next_url = request.args.get('next') or url_for('playlist')
+    next_url = request.args.get('next') or url_for('jukify')
     if resp is None or 'access_token' not in resp:
         return redirect(next_url)
     session['logged_in'] = True
@@ -52,13 +52,11 @@ def logout():
     pop_login_session()
     return redirect(url_for('index'))
 
-@app.route("/createplaylist")
+@app.route("/phones/phones.json")
 def playlist():
-  location = app.config['STATIC_FOLDER'] + "/phones/phones.json"
   asciitoken = session['facebook_token'][0]
-  f = open(location, "w")
-  f.write(format_text(get_artists(asciitoken.encode('utf-8'))))
-  return redirect(url_for('jukify'))
+  response.headers['Access-Control-Allow-Origin'] = "*"
+  return Response(response=format_text(get_artists(asciitoken.encode('utf-8'))), headers={'Access-Control-Allow-Origin' : "*"})
 
 @app.route("/jukify")
 def jukify():
