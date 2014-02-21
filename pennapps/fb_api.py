@@ -9,8 +9,6 @@ import pylast
 import time
 import re
 
-
-#token = 'CAAUz0srmPAUBAAixz93XR3rVXF0ATBCs9ZC3vKb5I9HTOYknJYTmRAcBVd3Xm36lWkRkJZCkgVXYbypvZCZCOfzoXJV81mrfZBg2aGqqYwMrPUr0WQSVk4sN6zyP0xZCrvvoZBeJsWZCSOoEICAUVOdgHMROgvr3Rjsr0ngZBtASdVr1mQFh1VgwPvTjcAFXZCrsPzZCdzeUH7DegZDZD'
 fb = Pyfb(FACEBOOK_APP_ID)
 rdio = Rdio((RDIO_KEY, RDIO_SECRET))
 NUMBER_OF_PEOPLE = 100
@@ -36,7 +34,11 @@ def find_artist_id(artist_name):
 		# return the first available artist with the given name. This assumes that 
 		# the most famous artist will appear first
 		return artist_list[0]['key'].encode('utf-8', errors='replace')
-		
+
+def find_artist_name(artist_name):
+	artist_list = (rdio.call('search',params={'query': artist_name, 'types': 'Artist'})['result'])\
+	['results']
+	return artist_list[0]['name'].encode('utf-8', errors='replace')		
 		
 def find_artist_image(artist_id):
 	return rdio.call('getTracksForArtist',params={'artist': artist_id,'sort':'playCount','count':5})\
@@ -118,7 +120,7 @@ def get_artists(counter_list):
 				dictionary["songs"] = songs
 				dictionary["id"] = artist_id
 			dictionary["likes"] = counter_list[artist]
-			dictionary["name"] = artist.replace("'","")
+			dictionary["name"] = find_artist_name(artist).replace("'","")
 			try:
 				dictionary["imageUrl"] = find_artist_image(artist_id)
 			except:
@@ -165,11 +167,7 @@ def format_text(list):
 	s = s.replace("'","\"")
 	return s
 	
-#def json_list(list):
-#	return json.dumps(list, sort_keys = True, indent = 4)
-	
 def run_all(url, token):
 	fb.set_access_token(token)
 	return format_text(get_artists(get_music_likes(get_event_members(get_event_id_from_url(url)))))
 
-print run_all('https://www.facebook.com/events/250613785109402/')	
