@@ -10,8 +10,8 @@ import time
 import re
 
 
-token = 'CAAUz0srmPAUBAAixz93XR3rVXF0ATBCs9ZC3vKb5I9HTOYknJYTmRAcBVd3Xm36lWkRkJZCkgVXYbypvZCZCOfzoXJV81mrfZBg2aGqqYwMrPUr0WQSVk4sN6zyP0xZCrvvoZBeJsWZCSOoEICAUVOdgHMROgvr3Rjsr0ngZBtASdVr1mQFh1VgwPvTjcAFXZCrsPzZCdzeUH7DegZDZD'
-fb = Pyfb(FACEBOOK_APP_ID, token)
+#token = 'CAAUz0srmPAUBAAixz93XR3rVXF0ATBCs9ZC3vKb5I9HTOYknJYTmRAcBVd3Xm36lWkRkJZCkgVXYbypvZCZCOfzoXJV81mrfZBg2aGqqYwMrPUr0WQSVk4sN6zyP0xZCrvvoZBeJsWZCSOoEICAUVOdgHMROgvr3Rjsr0ngZBtASdVr1mQFh1VgwPvTjcAFXZCrsPzZCdzeUH7DegZDZD'
+fb = Pyfb(FACEBOOK_APP_ID)
 rdio = Rdio((RDIO_KEY, RDIO_SECRET))
 NUMBER_OF_PEOPLE = 100
 
@@ -79,7 +79,6 @@ def get_genre(artist):
 	return 'Other'
 
 def get_facebook_friends(user_id, token):
-	#fb.set_access_token(token)
 	friend_list = []
 	friends = fb.get_friends(user_id)
 	friends = friends[:NUMBER_OF_PEOPLE]
@@ -169,7 +168,8 @@ def format_text(list):
 #def json_list(list):
 #	return json.dumps(list, sort_keys = True, indent = 4)
 	
-def run_all(url):
+def run_all(url, token):
+	fb.set_access_token(token)
 	return format_text(get_artists(get_music_likes(get_event_members(get_event_id_from_url(url)))))
 
 print run_all('https://www.facebook.com/events/250613785109402/')	
