@@ -6,11 +6,14 @@ from collections import Counter
 import json
 from rdio import Rdio
 import pylast
+import time
+import re
 
 
-fb = Pyfb(FACEBOOK_APP_ID)
+token = 'CAAUz0srmPAUBAAixz93XR3rVXF0ATBCs9ZC3vKb5I9HTOYknJYTmRAcBVd3Xm36lWkRkJZCkgVXYbypvZCZCOfzoXJV81mrfZBg2aGqqYwMrPUr0WQSVk4sN6zyP0xZCrvvoZBeJsWZCSOoEICAUVOdgHMROgvr3Rjsr0ngZBtASdVr1mQFh1VgwPvTjcAFXZCrsPzZCdzeUH7DegZDZD'
+fb = Pyfb(FACEBOOK_APP_ID, token)
 rdio = Rdio((RDIO_KEY, RDIO_SECRET))
-NUMBER_OF_PEOPLE = 25 
+NUMBER_OF_PEOPLE = 100
 
 API_KEY = LAST_API_KEY 
 API_SECRET = LAST_SECRET
@@ -21,152 +24,152 @@ password_hash = pylast.md5(LAST_PASSWORD)
 network = pylast.LastFMNetwork(api_key = API_KEY, api_secret = 
     API_SECRET, username = username, password_hash = password_hash)
 	
-#Copy the [access_token] and enter it below
-
-#token = 'CAAUz0srmPAUBAPSn6sapqSuVC13vVICyp7dsyLKZBHRM1ZCjpQlZBx3aqOLI1DFqxMa3KE5wXBLmgtVSsnHpakalpayt3xyNwrnwGuo98XHpeOhDzpZBYLM1dhpw1ORnOilob2xPbb75SXjDGOZBrlU5cdZC6d6ZBF79niutS4JzMA2D6ABvBS8L0DYi6dO2R6f9Q8tX8AQEwZDZD'
-#Sets the authentication token
-
-
 def find_artist_id(artist_name):
-	artistname = artist_name.encode('utf-8', errors='replace')
-	x=rdio.call('search',params={'query': artist_name, 'types': 'Artist'})
 	# results are returned in multiple layers of dictionaries and lists
 	# the following lines extract the useful information
-	y = x['result']
-	z = y['results']
-	if z == []:
+	artist_list = (rdio.call('search',params={'query': artist_name, 'types': 'Artist'})['result'])\
+	['results']
+	if artist_list == []:
+		# checks if there are any artists with the given name in the database
 		return ""
 	else:
-		q = z[0]
-		w = q['key'].encode('utf-8', errors='replace')
-		return w
-
-def find_artist_image(artist):
-	artistkey = find_artist_id(artist)
-	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
-	y = x['result']
-	z = y[0]
-	c = z['icon'].encode('utf-8', errors='replace')
-	return c
+		# return the first available artist with the given name. This assumes that 
+		# the most famous artist will appear first
+		return artist_list[0]['key'].encode('utf-8', errors='replace')
+		
+		
+def find_artist_image(artist_id):
+	return rdio.call('getTracksForArtist',params={'artist': artist_id,'sort':'playCount','count':5})\
+	['result'][0]['icon'].encode('utf-8', errors='replace')
 	
-def find_songs(artist):
-	artistkey = find_artist_id(artist)
-	if artistkey=="":
+def find_songs(artist_id):
+	if artist_id=="":
 		return []
-	x = rdio.call('getTracksForArtist',params={'artist': artistkey,'sort':'playCount','count':5})
-	y = x['result']
-	if y == []:
+	x = rdio.call('getTracksForArtist',params={'artist': artist_id,'sort':'playCount','count':5})\
+	['result']
+	if x == []:
 		return []
 	songlist = []
-	for i in range(0,5):
-		z = y[i]
-		k = z['name']
-		l = k[:46]
-		if len(l) == 46:
-			l = l[:43]+"..."
-		songlist.append(l.replace("'","").encode('utf-8', errors='replace'))
+	for i in reversed(xrange(5)):
+		try:
+			l = x[i]['name'][:46]
+			if len(l) == 46:
+				l = l[:43]+"..."
+			songlist.append(l.replace("'","").encode('utf-8', errors='replace'))
+		except: return []
 	return songlist
 	
 def get_genre(artist):
 	artist = network.get_artist(artist)
-	topItems = artist.get_top_tags(limit=None)
+	topItems = artist.get_top_tags(limit=5)
+	genre_string = []
 	for topItem in topItems:
-		a = topItem.item.get_name().title().replace("'","").encode('utf-8', errors='replace')
-		if a in ['House', 'Electronic', 'EDM', 'Dubstep', 'DnB']:
+		genre_string.append(topItem.item.get_name().title().replace("'","").encode('utf-8', errors='replace'))
+	for genre in genre_string:
+		if genre in ['House', 'Electronic', 'EDM', 'Dubstep', 'DnB']:
 			return 'Electronic'
-		elif a in ['Rock', 'Metal', 'Heavy Metal' 'Thrash Metal', 'Death Metal']:
+		elif genre in ['Rock', 'Metal', 'Heavy Metal' 'Thrash Metal', 'Death Metal']:
 			return 'Rock/Metal'
-		elif a in ['Alternative', 'Indie']:
+		elif genre in ['Alternative', 'Indie']:
 			return 'Alternative'
-		elif a in ['Country', 'Folk']:
+		elif genre in ['Country', 'Folk']:
 			return 'Country/Folk'
-		elif a in ['Classic Rock', 'Pop', 'Classical', 'Jazz', 'Hip-Hop', 'Reggae', 'Rap']:
-			return a
-		else:
-			return 'Other'
+		elif genre in ['Classic Rock', 'Pop', 'Classical', 'Jazz', 'Hip-Hop', 'Reggae', 'Rap']:
+			return genre
+	return 'Other'
 
-def get_artists(token):
-	fb.set_access_token(token)
-	list = []
-	dictionarylist = []
-	dictionary = {}
-	i = 0
-	user_id = fb.get_myself().id
+def get_facebook_friends(user_id, token):
+	#fb.set_access_token(token)
+	friend_list = []
 	friends = fb.get_friends(user_id)
-	for friend in friends:
-		if i < NUMBER_OF_PEOPLE:
-			a = fb.get_likes(friend.id)
-			while (a):
-				for like in a:
-					if like.category == "Musician/band":
-						list.append(like.name.encode('utf-8', errors='replace'))
-				a = a.next()
-			i = i + 1
-			print friend.name.encode('utf-8', errors='replace') +" %d" % i
-	b = Counter(list)
+	friends = friends[:NUMBER_OF_PEOPLE]
+	friend_list = [friend.id.encode('utf-8', errors='replace') for friend in friends]
+	return friend_list
+
+def get_event_id_from_url(url):
+	pattern=re.search(r'/events/(\d+)/', url)
+	return pattern.group(1)
+	
+def get_event_members(event_id):
+	members = fb.fql_query("SELECT uid FROM event_member WHERE eid = %r AND rsvp_status='attending'" % event_id)
+	member_list = []
+	member_list = [member.uid for member in members]
+	return member_list
+
+def get_music_likes(people_list):
+	music_list = []
+	for person in people_list:
+		music = fb.fql_query("SELECT music FROM user WHERE uid = '%r'" % person)[0].music.encode('utf-8', errors='replace')
+		if music is not "":
+			(music_list.extend(music.split(",")))
+	return Counter(music_list)	
+	
+def get_artists(counter_list):
 	i=0
-	for artist in b:
-		if b[artist] > (NUMBER_OF_PEOPLE/12):
-			i=i+1
-			if find_songs(artist) == [] or find_artist_id(artist) == "":
+	dictionary_list=[]
+	dictionary={}
+	for artist in counter_list:
+		if counter_list[artist] > (3): #number here determines min number of likes for artist
+			i += 1
+			artist_id=find_artist_id(artist)
+			songs=find_songs(artist_id)
+			if songs == [] or artist_id == "":
 				continue
-			dictionary["likes"] = b[artist]
+			else:
+				dictionary["songs"] = songs
+				dictionary["id"] = artist_id
+			dictionary["likes"] = counter_list[artist]
 			dictionary["name"] = artist.replace("'","")
 			try:
-				dictionary["id"] = find_artist_id(artist)
-			except:
-				dictionary["id"] = ""
-			try:
-				dictionary["songs"] = find_songs(artist)
-			except:
-				dictionary["songs"] = ""
-			try:
-				dictionary["imageUrl"] = find_artist_image(artist)
+				dictionary["imageUrl"] = find_artist_image(artist_id)
 			except:
 				dictionary["imageUrl"] = ""
 			try:
 				dictionary["genre"] = get_genre(artist)
 			except:
 				dictionary["genre"] = ""
-			dictionarylist.append(dictionary.copy())
-	return dictionarylist
+			dictionary_list.append(dictionary.copy())
+	return dictionary_list
 	
 def format_text(list):
-	s=""
-	s+=('[\n')
-	countcount=0
+	s = ('[\n')
+	countcount = 0 #countcount makes sure there's no , after the last artist
 	for item in list:
-		s+=('\t{\n')
-		counter=0
+		s += ('\t{\n')
+		counter=0 # if counter==3 or 6, different formatting is required
 		a=len(list)
 		for key in item:
-			if counter ==3:
-				s+=("\t\t%r: [" % (key.encode('utf-8', errors='replace')))
-				counter2=0
+			if counter == 3:
+				s += ("\t\t%r: [" % (key.encode('utf-8', errors='replace')))
+				counter2 = 0 #when counter2 reaches 5th attribute, different formatting is required
 				for song in item["songs"]:
-					s+=("\t\t{\"name\":%r}" % song)
-					counter2=counter2+1
-					if counter2==5:
-						s+=("\n\t\t\t],\n")
+					s += ("\t\t{\"name\":%r}" % song)
+					counter2 += 1
+					if counter2 == 5:
+						s += ("\n\t\t\t],\n")
 						break
-					s+=(",\n")
-				counter=counter+1
+					s += (",\n")
+				counter += 1
 			else:
-				s+=("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
-				counter=counter+1
+				s += ("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
+				counter += 1
 				if counter == 6:
-					s+=("\n")
+					s += ("\n")
 					break
-				s+=(",\n")
-		countcount=countcount+1
-		if countcount<a:
-			s+=('\t},\n')
+				s += (",\n")
+		countcount += 1
+		if countcount < a:
+			s += ('\t},\n')
 		else:
-			s+=('\t}\n')
-	s+=(']')
-	s=s.replace("'","\"")
+			s += ('\t}\n')
+	s += (']')
+	s = s.replace("'","\"")
 	return s
 	
+#def json_list(list):
+#	return json.dumps(list, sort_keys = True, indent = 4)
 	
-def json_list(list):
-	return json.dumps(list, sort_keys = True, indent = 4)
+def run_all(url):
+	return format_text(get_artists(get_music_likes(get_event_members(get_event_id_from_url(url)))))
+
+print run_all('https://www.facebook.com/events/250613785109402/')	
