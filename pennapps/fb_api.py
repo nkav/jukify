@@ -158,7 +158,7 @@ def format_text(list):
 					s += (",\n")
 				counter += 1
 			elif counter == 5:
-				s += ("\t\t%r:\"%s\"" % (key.encode('utf-8', errors='replace'), item[key]))
+				s += ("\t\t%r:%s" % (key.encode('utf-8', errors='replace'), item[key]))
 				counter += 1
 			else:
 				s += ("\t\t%r:\"%s\"" % (key.encode('utf-8', errors='replace'), str(item[key]).decode('utf-8')))
