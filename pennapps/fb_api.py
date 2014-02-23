@@ -77,7 +77,7 @@ def get_genre(artist):
 		elif genre in ['Country', 'Folk']:
 			return 'Country/Folk'
 		elif genre in ['Classic Rock', 'Pop', 'Classical', 'Jazz', 'Hip-Hop', 'Reggae', 'Rap']:
-			return genre
+			return genre 
 	return 'Other'
 
 def get_facebook_friends(user_id):
@@ -132,7 +132,7 @@ def get_artists(counter_list):
 			except:
 				dictionary["imageUrl"] = ""
 			try:
-				dictionary["genre"] = get_genre(artist)
+				dictionary["genre"] = get_genre(dictionary["name"])
 			except:
 				dictionary["genre"] = ""
 			dictionary_list.append(dictionary.copy())
