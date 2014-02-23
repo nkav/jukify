@@ -88,19 +88,23 @@ def get_facebook_friends(user_id, token):
 	return friend_list
 
 def get_event_id_from_url(url):
-	pattern=re.search(r'/events/(\d+)/', url)
+	pattern=re.search(r'/events/(\d+)', url)
 	return pattern.group(1)
 	
 def get_event_members(event_id):
 	members = fb.fql_query("SELECT uid FROM event_member WHERE eid = %r AND rsvp_status='attending'" % event_id)
 	member_list = []
 	member_list = [member.uid for member in members]
+	#for member in members:
+		#sys.stderr.write(str(member.uid))
 	return member_list
 
 def get_music_likes(people_list):
 	music_list = []
 	for person in people_list:
 		music = fb.fql_query("SELECT music FROM user WHERE uid = '%r'" % person)[0].music.encode('utf-8', errors='replace')
+		#sys.stderr.write(str(person) + '\n')
+		#sys.stderr.write(str(music) + '\n')
 		if music is not "":
 			(music_list.extend(music.split(",")))
 	return Counter(music_list)	
@@ -110,7 +114,7 @@ def get_artists(counter_list):
 	dictionary_list=[]
 	dictionary={}
 	for artist in counter_list:
-		if counter_list[artist] > (3): #number here determines min number of likes for artist
+		if counter_list[artist] > (1): #number here determines min number of likes for artist
 			i += 1
 			artist_id=find_artist_id(artist)
 			songs=find_songs(artist_id)
@@ -170,4 +174,3 @@ def format_text(list):
 def run_all(url, token):
 	fb.set_access_token(token)
 	return format_text(get_artists(get_music_likes(get_event_members(get_event_id_from_url(url)))))
-
