@@ -80,10 +80,9 @@ def get_genre(artist):
 			return genre
 	return 'Other'
 
-def get_facebook_friends(user_id, token):
+def get_facebook_friends(user_id):
 	friend_list = []
 	friends = fb.get_friends(user_id)
-	friends = friends[:NUMBER_OF_PEOPLE]
 	friend_list = [friend.id.encode('utf-8', errors='replace') for friend in friends]
 	return friend_list
 
@@ -94,7 +93,7 @@ def get_event_id_from_url(url):
 def get_event_members(event_id):
 	members = fb.fql_query("SELECT uid FROM event_member WHERE eid = %r AND rsvp_status='attending'" % event_id)
 	member_list = []
-	member_list = [member.uid for member in members]
+	member_list = [str(member.uid) for member in members]
 	#for member in members:
 		#sys.stderr.write(str(member.uid))
 	return member_list
@@ -105,7 +104,7 @@ def list_intersection(friend_list, member_list):
 def get_music_likes(people_list):
 	music_list = []
 	for person in people_list:
-		music = fb.fql_query("SELECT music FROM user WHERE uid = '%r'" % person)[0].music.encode('utf-8', errors='replace')
+		music = fb.fql_query("SELECT music FROM user WHERE uid = '%s'" % person)[0].music.encode('utf-8', errors='replace')
 		#sys.stderr.write(str(person) + '\n')
 		#sys.stderr.write(str(music) + '\n')
 		if music is not "":
@@ -177,3 +176,6 @@ def format_text(list):
 def run_all(url, token, user_id):
 	fb.set_access_token(token)
 	return format_text(get_artists(get_music_likes(list_intersection(get_facebook_friends(user_id), get_event_members(get_event_id_from_url(url))))))
+
+	
+	
