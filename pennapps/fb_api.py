@@ -77,9 +77,8 @@ def get_genre(artist):
 		elif genre in ['Country', 'Folk']:
 			return 'Country/Folk'
 		elif genre in ['Classic Rock', 'Pop', 'Classical', 'Jazz', 'Hip-Hop', 'Reggae', 'Rap']:
-			return genre
-		else: 
-			return 'Other'
+			return genre 
+	return 'Other'
 
 def get_facebook_friends(user_id):
 	friend_list = []
