@@ -132,7 +132,7 @@ def get_artists(counter_list):
 			except:
 				dictionary["imageUrl"] = ""
 			try:
-				dictionary["genre"] = get_genre(artist)
+				dictionary["genre"] = get_genre(dictionary["name"])
 			except:
 				dictionary["genre"] = ""
 			dictionary_list.append(dictionary.copy())
