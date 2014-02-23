@@ -98,6 +98,9 @@ def get_event_members(event_id):
 	#for member in members:
 		#sys.stderr.write(str(member.uid))
 	return member_list
+	
+def list_intersection(friend_list, member_list):
+	return [person for person in member_list if person in friend_list]
 
 def get_music_likes(people_list):
 	music_list = []
@@ -171,6 +174,6 @@ def format_text(list):
 	s = s.replace("'","\"")
 	return s
 	
-def run_all(url, token):
+def run_all(url, token, user_id):
 	fb.set_access_token(token)
-	return format_text(get_artists(get_music_likes(get_event_members(get_event_id_from_url(url)))))
+	return format_text(get_artists(get_music_likes(list_intersection(get_facebook_friends(user_id), get_event_members(get_event_id_from_url(url))))))
