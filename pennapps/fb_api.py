@@ -139,7 +139,7 @@ def get_artists(counter_list):
 	return dictionary_list
 	
 def format_text(list):
-	s = ('[\n')
+	s = ('JSON_CALLBACK [\n')
 	countcount = 0 #countcount makes sure there's no , after the last artist
 	for item in list:
 		s += ('\t{\n')
@@ -158,7 +158,7 @@ def format_text(list):
 					s += (",\n")
 				counter += 1
 			elif counter == 5:
-				s += ("\t\t%r:\"%s\"" % (key.encode('utf-8', errors='replace'), item[key]))
+				s += ("\t\t%r:%s" % (key.encode('utf-8', errors='replace'), item[key]))
 				counter += 1
 			else:
 				s += ("\t\t%r:\"%s\"" % (key.encode('utf-8', errors='replace'), str(item[key]).decode('utf-8')))
