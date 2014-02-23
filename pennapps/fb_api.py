@@ -150,7 +150,7 @@ def format_text(list):
 				s += ("\t\t%r: [" % (key.encode('utf-8', errors='replace')))
 				counter2 = 0 #when counter2 reaches 5th attribute, different formatting is required
 				for song in item["songs"]:
-					s += ("\t\t{\"name\":%r}" % song.decode('utf-8', errors='replace'))
+					s += ("\t\t{\"name\":\"%s\"}" % song.decode('utf-8'))
 					counter2 += 1
 					if counter2 == 5:
 						s += ("\n\t\t\t],\n")
@@ -158,7 +158,7 @@ def format_text(list):
 					s += (",\n")
 				counter += 1
 			else:
-				s += ("\t\t%r: %r" % (key.encode('utf-8', errors='replace'), item[key]))
+				s += ("\t\t%r:\"%s\"" % (key.encode('utf-8', errors='replace'), str(item[key]).decode('utf-8')))
 				counter += 1
 				if counter == 6:
 					s += ("\n")
