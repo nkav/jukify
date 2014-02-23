@@ -67,15 +67,16 @@ def eventform():
 
 @app.route("/phones")
 def playlist():
+	userid = facebook.get('/me').data['id'].encode('utf-8')
 	if 'eventurl' not in session:
 		return redirect(url_for('eventform'))
 	eventurl = str(session['eventurl'])
-	asciitoken = session['facebook_token'][0]
-	#sys.stderr.write(str(type(session['facebook_token'][0].encode('utf-8'))))
-	#sys.stderr.write(str(session['facebook_token'][0].encode('utf-8')))
-	#sys.stderr.write(str(type(eventurl)))
-	return Response(response=run_all(eventurl, asciitoken.encode('utf-8')), headers={'Access-Control-Allow-Origin' : "*"})
-	#return Response(response=run_all(eventurl, "CAADH7BdddM0BAAel3FiQCSDKpVEJRrZC4r1mij8uNkxUReqY06fQUJdkIipPD3eTCadduSb4zKgL7FxwZBlO9L9kKdrCfcASJ9kZBsS20sVoYAuyciSfPH6tBm6bdZAKhodqa2USdwK2gAaKFWLmQUOkQE6vvT3lTGrCeZArcUWStoDdm2S57uJ0zlFkSrPoZD"), headers={'Access-Control-Allow-Origin' : "*"})
+	asciitoken = session['facebook_token'][0].encode('utf-8')
+	return Response(response=run_all(eventurl, asciitoken, userid), headers={'Access-Control-Allow-Origin' : "*"})
+
+@app.route("/songs.json")
+def songs():
+	return render_template("songs.json")
 
 @app.route("/jukify")
 def jukify():
