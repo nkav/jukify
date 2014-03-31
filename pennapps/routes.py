@@ -78,6 +78,15 @@ def playlist():
 def songs():
 	return render_template("songs.json")
 
+@app.route("/songs")
+def songstxt():
+	userid = facebook.get('/me').data['id'].encode('utf-8')
+	if 'eventurl' not in session:
+		return redirect(url_for('eventform'))
+	eventurl = str(session['eventurl'])
+	asciitoken = session['facebook_token'][0].encode('utf-8')
+	return Response(response=run_all(eventurl,asciitoken,userid), headers={'Access-Control-Allow-Origin' : "*"})
+
 @app.route("/jukify")
 def jukify():
   data = facebook.get('/me').data
